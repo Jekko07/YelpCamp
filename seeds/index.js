@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cities = require('./cities'); //importing cities array
 const { places, descriptors } = require('./seedHelpers');
 const Campground = require('../models/campground');
-const axios = require('axios');
+const axios = require('axios'); //require axios request
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp') //initialize database name
 
@@ -36,8 +36,11 @@ const seedDB = async () => {
 const getImageURL = async () => {
     try {
         const response = await axios.get('https://api.unsplash.com/photos/random', {
+            // The Authorization header is set to Client-ID YOUR_API_KEY.
+            // The collection ID is passed as a query parameter using params
             headers: {
-                Authorization: `Client-ID ${process.env.UNSPLASH_API_KEY}`
+                // Load environment variables using dotenv and use process.env.UNSPLASH_API_KEY to access the Unsplash API key
+                Authorization: `Client-ID ${process.env.UNSPLASH_API_KEY}` 
             },
             params: {
                 collections: '1114848'
